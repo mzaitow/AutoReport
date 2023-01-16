@@ -6,14 +6,16 @@
 
 class CSVParser {
 private:
-  std::string m_cellContent;
+  std::ifstream file;
 
-  void getContent(const char termChar);
+  std::string m_cellContent;
+  std::string m_fileContent;
+  std::string::iterator i;
+
+  void getContent();
   void getTermChar(const char ch);
   
 public:
-  std::ifstream file;
-
   CSVParser(const char *filename);
   const std::string &getCellContent();
 

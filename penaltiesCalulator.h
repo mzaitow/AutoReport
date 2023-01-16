@@ -1,8 +1,8 @@
 #ifndef PENALTIESCALCULATOR_H
 #define PENALTIESCALCULATOR_H
 
-#include "offer.h"
+#include "date.h"
 
-int calculatePenalties(Offer offer_, Date penaltyPeriodEnd_);
+float calculatePenalties(Date term, Date current, float penaltyPercent, int amount);
 
 #endif // PENALTIESCALCULATOR_H

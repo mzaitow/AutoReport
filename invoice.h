@@ -9,10 +9,11 @@ public:
   int offerID;            // РРґРµРЅС‚РёС„РёРєР°С†РёРѕРЅРЅС‹Р№ РЅРѕРјРµСЂ РґРѕРіРѕРІРѕСЂР°
   int amount;             // РЎС‡С‘С‚-С„Р°РєС‚СѓСЂР°
   Date date;              // Р”Р°С‚Р°
-  Date paymentTerm;       // РЎСЂРѕРє
+  int paymentTerm;
   int penalty;            // РџРµРЅРё
+  Date termDate;
 
-  Invoice(const int ID_, const int offerID_, const int amount_, const Date date_, const Date paymentTerm_);
+  Invoice(const int ID_, const int offerID_, const int amount_, const Date date_, const int paymentTerm_);
 };
 
 #endif // INVOICE_H

@@ -10,8 +10,11 @@ public:
   int invoiceID;
   int payment;
   Date date;
+  int paymentTerm;
+  Date termDate;
+  int penalty;
 
-  Payment(const int ID_, const int offerID_, const int invoiceID_, const int payment_, const Date date_);
+  Payment(const int ID_, const int offerID_, const int invoiceID_, const int payment_, const Date date_, const int paymentTerm_);
   Payment(const Payment &other);
   Payment &operator=(const Payment &other);
 };

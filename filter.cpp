@@ -12,7 +12,7 @@ FilterSettings::FilterSettings()
 
 Filter::Filter(unordered_map<int, Offer> &offers,
                unordered_map<int, unordered_map<int, Invoice>> &invoices,
-               unordered_map<int, unordered_map<int, Payment>> &payments)
+               std::unordered_map<int, std::unordered_map<int, std::vector<Payment>>> &payments)
     : m_offers(offers), m_invoices(invoices), m_payments(payments), date(1, 1, 2000) {}
 
 void Filter::filter() {
@@ -29,7 +29,7 @@ void Filter::filter() {
 
   switch (filterSettings.report) {
   case Report::NonExpired:
-    // filterNonExpired();
+    filterNonExpired();
     break;
   case Report::Overdue:
     filterOverdue();
@@ -60,51 +60,14 @@ void Filter::filterBy(function<bool(const Offer &offer)> by) {
 }
 
 void Filter::filterOverdue() {
-    /* filterBy([this](const Offer &offer) -> bool {
-      for(auto &i : m_invoices[offer.ID]) {
-          if(date < i.second.paymentTerm)
-              continue;
-
-          int payment = 0;
-
-          for(auto &p : m_payments[offer.ID]) {
-            if(p.second.invoiceID == i.second.ID)
-                payment += p.second.payment;
-          }
-
-          if(payment < i.second.amount) {
-              Invoice &inv = i.second;
-
-              offer.overdueInvoices.insert({ i.second.ID, inv });
-
-              return true;
-          }
-
-      }
-
-      return false;
-    }); */
+    filterBy([](const Offer &offer) -> bool {
+        return offer.status == Status::Overdue;
+    });
 }
 
 void Filter::filterNonExpired() {
-    filterBy([this](const Offer &offer) -> bool {
-      for(auto &i : m_invoices[offer.ID]) {
-          if(date < i.second.paymentTerm)
-              continue;
-
-          int payment = 0;
-
-          for(auto &p : m_payments[offer.ID]) {
-            if(p.second.invoiceID == i.second.ID)
-                payment += p.second.payment;
-          }
-
-          if(payment < i.second.amount)
-              return false;
-
-      }
-
-      return true;
+    filterBy([](const Offer &offer) -> bool {
+        return offer.status == Status::NonExpired;
     });
 }
 
@@ -121,10 +84,8 @@ void Filter::filterCreditor() {
 }
 
 void Filter::filterPaid() {
-  filterBy([this](const Offer &offer) -> bool {
-    return
-      (m_payments.find(offer.ID) != m_payments.end()) &&
-      (offer.amount <= offer.paid);
+  filterBy([](const Offer &offer) -> bool {
+    return offer.status == Status::Paid;
   });
 }
 

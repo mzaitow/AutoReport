@@ -1,54 +1,50 @@
 #include "csvparser.h"
+#include <iostream>
 
 using namespace std;
 
 CSVParser::CSVParser(const char *filename)
-  : file(filename) {
-  int ch = file.get();
-  
-  if(ch == '"') {
-    getContent('"');
-  } else {
-    file.seekg(-1, ios::cur);
-    getContent(',');
-    file.seekg(-1, ios::cur);
-  }
+  : file(filename),
+    m_fileContent((std::istreambuf_iterator<char>(file)), std::istreambuf_iterator<char>()),
+    i(m_fileContent.begin()) {
+    getContent();
 }
 
 const string &CSVParser::getCellContent() {
   return m_cellContent;
 }
 
-void CSVParser::getContent(const char termChar) {
+void CSVParser::getContent() {
   m_cellContent.clear();
-  int ch;
+  int ch = *i;
+  char termChar;
 
-  while((ch = file.get()) != termChar && ch != EOF) {
+  if(ch == '"') {
+      termChar = '"';
+  } else {
+      termChar = ',';
+  }
+
+  while(i != m_fileContent.end() && (ch = *i) != termChar) {
     if(ch == '\n') {
-      file.seekg(-2, ios::cur);
+      i -= 1;
     
       return;
     }
 
     m_cellContent.push_back(static_cast<char>(ch));
+    ++i;
   }
+
+
 }
 
 void CSVParser::nextColumn() {
-  int ch = file.get();
-
-  if(ch != ',' && ch != '\n')
+  if(*i != ',' && *i != '\n')
     throw string("Expected comma-separator");
 
-  ch = file.get();
- 
-  if(ch == '"') {
-    getContent('"');
-  } else {
-    file.seekg(-1, ios::cur);
-    getContent(',');
-    file.seekg(-1, ios::cur);
-  }
+  ++i;
+  getContent();
 }
 
 const string &CSVParser::getNewlineCellContent() {
@@ -62,9 +58,6 @@ const string &CSVParser::getForwardCellContent() {
 }
 
 void CSVParser::nextRow() {
-  int ch;
-  
-  while((ch = file.get()) != '\n' && ch != EOF);
-  file.seekg(-1, ios::cur);
+  while(i != m_fileContent.end() && *i != '\n') ++i;
   getForwardCellContent();
 }

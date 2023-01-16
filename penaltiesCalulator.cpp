@@ -1,15 +1,15 @@
 #include "penaltiesCalulator.h"
 #include "date.h"
 
-int calculatePenalties(Offer offer, Date penaltyPeriodEnd) {
-  int period = penaltyPeriodEnd - offer.paymentDate;
-  int percent = offer.amount / 100;
-  int penalty = offer.amount + percent * offer.penaltyPercent;
+float calculatePenalties(Date term, Date current, float penaltyPercent, int amount) {
+  int period = current - term;
+  float percent = amount / 100;
+  float penalty = amount + percent * penaltyPercent;
 
   for(int i = 0; i < period; ++i) {
     percent = penalty / 100;
-    penalty += percent * offer.penaltyPercent;
+    penalty += percent * penaltyPercent;
   }
 
-  return penalty;
+  return penalty - amount;
 }

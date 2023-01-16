@@ -29,7 +29,11 @@ void CSVBuilder::nextColumn() {
 }
 
 void CSVBuilder::setCellContent(const std::string content) {
-  m_cellContent = content;
+  if(content.find(',') != std::string::npos) {
+    m_cellContent = '"' + content + '"';
+  } else {
+    m_cellContent = content;
+  }
 }
 
 CSVBuilder::~CSVBuilder() {

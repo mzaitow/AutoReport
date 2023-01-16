@@ -7,6 +7,7 @@
 #include "report.h"
 #include <functional>
 #include "date.h"
+#include <vector>
 
 class FilterSettings {
 public:
@@ -20,7 +21,7 @@ class Filter {
 private:
   std::unordered_map<int, Offer> &m_offers;
   std::unordered_map<int, std::unordered_map<int, Invoice>> &m_invoices;
-  std::unordered_map<int, std::unordered_map<int, Payment>> &m_payments;
+  std::unordered_map<int, std::unordered_map<int, std::vector<Payment>>> &m_payments;
 
   void filterBy(std::function<bool(const Offer &offer)> by);
 
@@ -36,7 +37,7 @@ public:
 
   Filter(std::unordered_map<int, Offer> &offers,
          std::unordered_map<int, std::unordered_map<int, Invoice>> &invoices,
-         std::unordered_map<int, std::unordered_map<int, Payment>> &payments);
+         std::unordered_map<int, std::unordered_map<int, std::vector<Payment>>> &payments);
 
   void filter();
 };

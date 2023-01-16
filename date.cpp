@@ -56,6 +56,30 @@ bool Date::operator<(const Date &date) {
   return *this - tmpDate < 0;
 }
 
+void Date::addWorkDays(const int days, const int daysInWeek) {
+    time_t unixTime = mktime(&m_DateStruct);
+    int weekend = 7 - daysInWeek;
+
+    for(int i = 0; i < days; ++i) {
+        unixTime += std::localtime(&unixTime)->tm_wday > daysInWeek ? 86400 * weekend : 86400;
+    }
+
+    m_DateStruct = *std::localtime(&unixTime);
+    day = m_DateStruct.tm_mday;
+    month = m_DateStruct.tm_mon;
+    year = m_DateStruct.tm_year;
+}
+
+void Date::addDays(const int days) {
+    time_t unixTime = mktime(&m_DateStruct);
+    unixTime += days * 86400;
+
+    m_DateStruct = *std::localtime(&unixTime);
+    day = m_DateStruct.tm_mday;
+    month = m_DateStruct.tm_mon;
+    year = m_DateStruct.tm_year;
+}
+
 namespace std {
   string to_string(Date &date) {
     return to_string(date.day) + '.' + to_string(date.month) + '.' + to_string(date.year);

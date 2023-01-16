@@ -2,6 +2,7 @@
 #define REPORTFORMER_H
 
 #include <unordered_map>
+#include <vector>
 #include "offer.h"
 #include "invoice.h"
 #include "payment.h"
@@ -17,7 +18,7 @@ class ReportFormer {
 private:
   std::unordered_map<int, Offer> &m_offers;
   std::unordered_map<int, std::unordered_map<int, Invoice>> &m_invoices;
-  std::unordered_map<int, std::unordered_map<int, Payment>> &m_payments;
+  std::unordered_map<int, std::unordered_map<int, std::vector<Payment>>> &m_payments;
 
   void formReportForSupervisor();
   void formReportForDepartamentHead();
@@ -32,9 +33,9 @@ public:
 
   ReportFormer(std::unordered_map<int, Offer> &offers,
          std::unordered_map<int, std::unordered_map<int, Invoice>> &invoices,
-         std::unordered_map<int, std::unordered_map<int, Payment>> &payments);
+         std::unordered_map<int, std::unordered_map<int, std::vector<Payment>>> &payments);
 
-  std::string getOfferStatus(const Offer &offer);
+  std::string getOfferStatusString(const Offer &offer);
 
   void reportForm();
 };

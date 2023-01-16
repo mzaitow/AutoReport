@@ -10,7 +10,7 @@
     <x>0</x>
     <y>0</y>
     <width>261</width>
-    <height>561</height>
+    <height>637</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -40,7 +40,7 @@
     <property name="geometry">
      <rect>
       <x>10</x>
-      <y>520</y>
+      <y>590</y>
       <width>240</width>
       <height>31</height>
      </rect>
@@ -75,23 +75,29 @@
     <property name="geometry">
      <rect>
       <x>10</x>
-      <y>90</y>
+      <y>111</y>
       <width>241</width>
       <height>25</height>
      </rect>
     </property>
     <property name="text">
-     <string>Выбрать таблицу со счёт-фактурами</string>
+     <string>Выбрать таблицу со счетами-фактурами</string>
     </property>
    </widget>
    <widget class="QLabel" name="label_2">
     <property name="geometry">
      <rect>
       <x>10</x>
-      <y>180</y>
+      <y>249</y>
       <width>231</width>
       <height>19</height>
      </rect>
+    </property>
+    <property name="font">
+     <font>
+      <weight>75</weight>
+      <bold>true</bold>
+     </font>
     </property>
     <property name="text">
      <string>Компания:</string>
@@ -101,10 +107,16 @@
     <property name="geometry">
      <rect>
       <x>10</x>
-      <y>245</y>
+      <y>314</y>
       <width>231</width>
       <height>19</height>
      </rect>
+    </property>
+    <property name="font">
+     <font>
+      <weight>75</weight>
+      <bold>true</bold>
+     </font>
     </property>
     <property name="text">
      <string>Сформировать отчёт по:</string>
@@ -114,7 +126,7 @@
     <property name="geometry">
      <rect>
       <x>10</x>
-      <y>120</y>
+      <y>160</y>
       <width>241</width>
       <height>25</height>
      </rect>
@@ -127,20 +139,26 @@
     <property name="geometry">
      <rect>
       <x>10</x>
-      <y>359</y>
+      <y>428</y>
       <width>231</width>
       <height>19</height>
      </rect>
+    </property>
+    <property name="font">
+     <font>
+      <weight>75</weight>
+      <bold>true</bold>
+     </font>
     </property>
     <property name="text">
      <string>Сформировать отчёт для:</string>
     </property>
    </widget>
-   <widget class="QLineEdit" name="lineEdit_2">
+   <widget class="QLineEdit" name="supervisor_field">
     <property name="geometry">
      <rect>
       <x>10</x>
-      <y>448</y>
+      <y>524</y>
       <width>241</width>
       <height>25</height>
      </rect>
@@ -152,11 +170,11 @@
      <string>Куратор договора</string>
     </property>
    </widget>
-   <widget class="QLineEdit" name="lineEdit_4">
+   <widget class="QLineEdit" name="dep_number_field">
     <property name="geometry">
      <rect>
       <x>10</x>
-      <y>478</y>
+      <y>554</y>
       <width>241</width>
       <height>25</height>
      </rect>
@@ -172,9 +190,9 @@
     <property name="geometry">
      <rect>
       <x>10</x>
-      <y>200</y>
+      <y>269</y>
       <width>81</width>
-      <height>42</height>
+      <height>46</height>
      </rect>
     </property>
     <layout class="QVBoxLayout" name="verticalLayout">
@@ -198,9 +216,9 @@
     <property name="geometry">
      <rect>
       <x>10</x>
-      <y>266</y>
+      <y>335</y>
       <width>190</width>
-      <height>88</height>
+      <height>96</height>
      </rect>
     </property>
     <layout class="QVBoxLayout" name="verticalLayout_2">
@@ -238,9 +256,9 @@
     <property name="geometry">
      <rect>
       <x>10</x>
-      <y>380</y>
+      <y>449</y>
       <width>136</width>
-      <height>65</height>
+      <height>71</height>
      </rect>
     </property>
     <layout class="QVBoxLayout" name="verticalLayout_3">
@@ -271,10 +289,85 @@
     <property name="geometry">
      <rect>
       <x>10</x>
-      <y>151</y>
+      <y>223</y>
       <width>110</width>
       <height>22</height>
      </rect>
+    </property>
+   </widget>
+   <widget class="QLabel" name="offer_label">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>85</y>
+      <width>241</width>
+      <height>16</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <italic>false</italic>
+      <strikeout>false</strikeout>
+      <kerning>true</kerning>
+     </font>
+    </property>
+    <property name="text">
+     <string>(таблица с договорами не выбрана)</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="invoice_label">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>135</y>
+      <width>241</width>
+      <height>16</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <italic>false</italic>
+     </font>
+    </property>
+    <property name="text">
+     <string>(таблица со счетами-фактурами не выбрана)</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="payment_label">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>185</y>
+      <width>241</width>
+      <height>16</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <italic>false</italic>
+     </font>
+    </property>
+    <property name="text">
+     <string>(таблица с квитанциями не выбрана)</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_8">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>204</y>
+      <width>231</width>
+      <height>19</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <weight>75</weight>
+      <bold>true</bold>
+     </font>
+    </property>
+    <property name="text">
+     <string>Дата:</string>
     </property>
    </widget>
   </widget>
